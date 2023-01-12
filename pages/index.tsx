@@ -1,6 +1,13 @@
+import { useEffect } from 'react';
 import cloudinary from '../utils/cloudinary';
+import getBase64ImageUrl from '../utils/generateBlurPlaceHolder';
+import type { ImageProps } from '../utils/types';
 
-export default function Home() {
+export default function Home(props: {}) {
+  useEffect(() => {
+    console.log(props);
+  }, []);
+
   return <main>Hello Next.js</main>;
 }
 
@@ -24,9 +31,16 @@ export async function getStaticProps() {
     i++;
   }
 
+  const blurImagePromises = results.resources.map((resource: ImageProps) => {
+    return getBase64ImageUrl(resource);
+  });
+
+  const imagesWithBlurUrls = await Promise.all(blurImagePromises);
+
   return {
     props: {
       reducedResults,
+      imagesWithBlurUrls,
     },
   };
 }
