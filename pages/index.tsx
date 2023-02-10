@@ -29,6 +29,11 @@ export default function Home({ images }: { images: ImageProps[] }) {
       </main>
 
       <style jsx>{`
+        main {
+          margin: 0 auto;
+          max-width: 1960px;
+        }
+
         div {
           padding: 1rem;
           display: grid;
